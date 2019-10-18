@@ -1,35 +1,17 @@
 
 import React from 'react'
 import Table from './Table'
+import Form from './Form' 
 
 class App extends React.Component {
+
   state = {
-    destList: [
-        {
-          destination: 'Venice',
-          country: 'Italy'
-        },
-        {
-          destination: 'Gili Islands',
-          country: 'Indonesia'
-        },
-        {
-          destination: 'Kekova',
-          country: 'Turkey'
-        },
-        {
-          destination: 'Zhangjiajie',
-          country: 'China'
-        },
-        {
-            destination: 'Waitomo Glow Worm Cave', 
-            country: 'New Zealand'
-        },
-    ],
+    destList: [],
   }
 
   removeDestination = index => {    
     const listofDest = this.state.destList;     
+    
     this.setState({
       destList: listofDest.filter((dest, i) => { 
         return i !== index
@@ -37,12 +19,17 @@ class App extends React.Component {
     })
   }
 
+  handleSubmit = dest => {
+    this.setState({destList: [...this.state.destList, dest]});
+}
+
   render() {
       
     return (
       <div className="App">
         <h1>Travel Bucketlist</h1>
         <Table destinations={this.state.destList} removeDestination={this.removeDestination}/>
+        <Form handleSubmit={this.handleSubmit}/>
       </div>
     )
   }
